@@ -12,7 +12,7 @@ app.use(require('./routes'));
 
 // tells Mongoose which DB to connect to
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/pizza-hunt', {
-  useNewParser: true,
+  useNewUrlParser: true,
   useUnifiedTopology: true
 });
 

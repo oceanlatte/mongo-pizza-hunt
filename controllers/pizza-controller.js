@@ -1,4 +1,4 @@
-const { Pizza } = require('../models');
+const { Pizza } = require('../models/Pizza');
 
 const pizzaController = {
   // get all pizzas || GET /api/pizzas
