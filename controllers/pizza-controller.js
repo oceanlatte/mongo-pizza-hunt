@@ -21,7 +21,7 @@ const pizzaController = {
   // get one pizza by id || GET api/pizzas/:id
   // deconstructed params out of req
   getPizzaById({ params }, res) {
-    Pizza.findOne({_id: params.id })
+    Pizza.findOne({ _id: params.id })
       .populate({
         path: 'comments',
         select: '-__v'
