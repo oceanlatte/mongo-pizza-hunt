@@ -32,7 +32,7 @@ const pizzaController = {
 
   // createPizza
   createPizza({ body }, res) {
-    console.log(body)
+    Pizza.create(body)
       .then(dbPizzaData => res.json(dbPizzaData))
       // 400 error if something goes wrong
       .catch(err => res.status(400).json(err));
