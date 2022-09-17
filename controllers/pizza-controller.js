@@ -5,6 +5,12 @@ const pizzaController = {
   // uses Mongoose's 'find' method
   getAllPizza(req, res) {
     Pizza.find({})
+    .populate({
+      path: 'comments',
+      select: '-__v' // - indicates we don't want that info
+    })
+    .select('-__v')
+    .sort({ _id: -1 })
     .then(dbPizzaData => res.json(dbPizzaData))
     .catch(err => {
       console.log(err);
@@ -16,6 +22,11 @@ const pizzaController = {
   // deconstructed params out of req
   getPizzaById({ params }, res) {
     Pizza.findOne({_id: params.id })
+      .populate({
+        path: 'comments',
+        select: '-__v'
+      })
+      .select('-__v')
       .then(dbPizzaData => {
         // if no pizza is found, send 404
         if (!dbPizzaData) {
