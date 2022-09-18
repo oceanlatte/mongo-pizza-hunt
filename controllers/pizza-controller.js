@@ -1,21 +1,21 @@
-const { Pizza } = require('../models/Pizza');
+const Pizza = require('../models/Pizza');
 
 const pizzaController = {
   // get all pizzas || GET /api/pizzas
   // uses Mongoose's 'find' method
   getAllPizza(req, res) {
     Pizza.find({})
-    .populate({
-      path: 'comments',
-      select: '-__v' // - indicates we don't want that info
-    })
-    .select('-__v')
-    .sort({ _id: -1 })
-    .then(dbPizzaData => res.json(dbPizzaData))
-    .catch(err => {
-      console.log(err);
-      res.sendStatus(400);
-    });
+      .populate({
+        path: 'comments',
+        select: '-__v'
+      })
+      .select('-__v')
+      .sort({ _id: -1 })
+      .then(dbPizzaData => res.json(dbPizzaData))
+      .catch(err => {
+        console.log(err);
+        res.sendStatus(400);
+      });
   },
 
   // get one pizza by id || GET api/pizzas/:id
@@ -35,18 +35,17 @@ const pizzaController = {
         }
         res.json(dbPizzaData);
       })
-        .catch(err => {
-          console.log(err);
-          res.status(400).json(err);
-        })
+      .catch(err => {
+        console.log(err);
+        res.status(400).json(err);
+      })
   },
 
   // createPizza
   createPizza({ body }, res) {
     Pizza.create(body)
       .then(dbPizzaData => res.json(dbPizzaData))
-      // 400 error if something goes wrong
-      .catch(err => res.status(400).json(err));
+      .catch(err => res.json(err));
   },
 
   // updated pizza by id || PUT /api/pizzas/:id
@@ -59,7 +58,7 @@ const pizzaController = {
         }
         res.json(dbPizzaData);
       })
-        .catch(err=> res.status(400).json(err));
+      .catch(err => res.json(err));
   },
 
   // delete pizza
